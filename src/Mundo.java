@@ -39,11 +39,20 @@ public class Mundo {
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         Random rand = new Random();
         for(int i = 0; i < 10; i++){
-            pessoas.add(new Pessoa(rand.nextInt(28)+1, rand.nextInt(58)+1, 56, String.valueOf(i+100));
+            pessoas.add(new Pessoa(rand.nextInt(28)+1, rand.nextInt(58)+1, 56, String.valueOf(i+100)));
+            System.out.println(pessoas.get(i));
         }
         return pessoas;
     }
+
+    public void desenhaPessoas(ArrayList<Pessoa> pessoas){
+        for(Pessoa p : pessoas){
+            mapa[p.getX()][p.getY()][0] = p.getCor();
+        }
+    }
+
     public void desenhaMundo(){
+        ArrayList<Pessoa> pessoas = geraPessoas();
         for(int i = 0; i < 30; i++){
             for(int j = 0; j < 60; j++){
                 int len = mapa[i][j].length;

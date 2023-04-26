@@ -13,4 +13,49 @@ public class Pessoa {
         this.cor = cor;
         this.whatsappID = whatsappID;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getCor() {
+        return cor;
+    }
+
+    public void setCor(int cor) {
+        this.cor = cor;
+    }
+
+    public String getWhatsappID() {
+        return whatsappID;
+    }
+
+    public void setWhatsappID(String whatsappID) {
+        this.whatsappID = whatsappID;
+    }
+
+    public ArrayList<String> getAgendaContatos() {
+        return AgendaContatos;
+    }
+
+    public void setAgendaContatos(ArrayList<String> agendaContatos) {
+        AgendaContatos = agendaContatos;
+    }
+
+    @Override
+    public String toString(){
+        return "x: " + x + " y: " + y + " cor: " + cor + " whatsappID: " + whatsappID;
+    }
 }

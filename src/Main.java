@@ -3,6 +3,6 @@
 public class Main {
     public static void main(String[] args) {
         Mundo m = new Mundo();
-        m.desenhaMundo();
+        m.geraPessoas();
     }
 }
