@@ -51,12 +51,12 @@ public class Mundo {
     }
 
     public int[][] desenhaPessoas(ArrayList<Pessoa> pessoas) {
-        int[][] mapa = getMundo();
-        for(int i = 0; i < 30; i++){
-            for(int j = 0; j < 60; j++){
-                System.out.print(mapa[i][j]);
+        int[][] mapa = new int[this.mundo.length][];
+        for (int i = 0; i < mapa.length; i++) {
+            mapa[i] = new int[mundo[i].length];
+            for (int j = 0; j < mundo[i].length; j++) {
+                mapa[i][j] = mundo[i][j];
             }
-            System.out.println();
         }
         for (Pessoa p : pessoas) mapa[p.getX()][p.getY()] = p.getCor();
         return mapa;
