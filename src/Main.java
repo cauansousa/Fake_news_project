@@ -1,3 +1,5 @@
+import static java.lang.Thread.sleep;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
@@ -7,7 +9,7 @@ public class Main {
         while (true) {
             m.desenhaMundo();
             try {
-                Thread.sleep(1000);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

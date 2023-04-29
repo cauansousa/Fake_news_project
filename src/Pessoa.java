@@ -5,6 +5,7 @@ public class Pessoa {
     private int y;
     private int cor;
     private String whatsappID;
+    private int tempoImune = 0;
     private ArrayList<String> AgendaContatos = new ArrayList<>();
 
     public Pessoa(int x, int y, int cor, String whatsappID){
@@ -54,6 +55,9 @@ public class Pessoa {
         AgendaContatos = agendaContatos;
     }
 
+    public int getTempoImune() {return tempoImune;}
+
+    public void setTempoImune(int tempoImune) {this.tempoImune = tempoImune;}
     @Override
     public String toString(){
         return "x: " + x + " y: " + y + " cor: " + cor + " whatsappID: " + whatsappID;
