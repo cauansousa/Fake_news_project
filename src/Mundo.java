@@ -51,7 +51,6 @@ public class Mundo {
 
     public int[][] desenhaPessoas(ArrayList<Pessoa> pessoas) {
         int[][] mapa = new int[this.mundo.length][60];
-        System.out.println(mapa.length);
         for (int i = 0; i < mapa.length; i++) {
             System.arraycopy(mundo[i], 0, mapa[i], 0, mundo[i].length);
         }
@@ -81,14 +80,6 @@ public class Mundo {
     }
 
     public void desenhaMundo(){
-        for(Pessoa p : pessoas){
-            Pessoa newP = checaPessoas(p);
-            if (newP != null) {
-                pessoas.set(pessoas.indexOf(p), newP);
-            }
-            if(p instanceof PessoaBemInformada) ((PessoaBemInformada) p).move();
-            else ((PessoaMalInformada) p).move();
-        }
         int[][] mapa = desenhaPessoas(this.pessoas);
         for(int i = 0; i < 30; i++){
             for(int j = 0; j < 60; j++){
@@ -111,6 +102,17 @@ public class Mundo {
                 }
             }
             System.out.println();
+        }
+        for(Pessoa p : pessoas){
+            Pessoa newP = checaPessoas(p);
+            if (newP != null) {
+                pessoas.set(pessoas.indexOf(p), newP);
+                if(newP instanceof PessoaBemInformada) ((PessoaBemInformada) newP).move();
+                else ((PessoaMalInformada) newP).move();
+            } else {
+                if(p instanceof PessoaBemInformada) ((PessoaBemInformada) p).move();
+                else ((PessoaMalInformada) p).move();
+            }
         }
     }
 }
