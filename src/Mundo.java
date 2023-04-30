@@ -39,8 +39,8 @@ public class Mundo {
     public void geraPessoas(){
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         Random rand = new Random();
-        for(int i = 0; i < 5; i++){
-            pessoas.add(new PessoaBemInformada(rand.nextInt(27)+1, rand.nextInt(57)+1, 56, String.valueOf(i+100)));
+        for(int i = 0; i < 15; i++){
+            pessoas.add(new PessoaBemInformada(rand.nextInt(57)+1,rand.nextInt(27)+1, 6, String.valueOf(i+100), 0));
         }
         setPessoas(pessoas);
     }
@@ -50,58 +50,67 @@ public class Mundo {
     }
 
     public int[][] desenhaPessoas(ArrayList<Pessoa> pessoas) {
-        int[][] mapa = new int[this.mundo.length][];
+        int[][] mapa = new int[this.mundo.length][60];
+        System.out.println(mapa.length);
         for (int i = 0; i < mapa.length; i++) {
-            mapa[i] = new int[mundo[i].length];
             System.arraycopy(mundo[i], 0, mapa[i], 0, mundo[i].length);
         }
-        for (Pessoa p : pessoas){
-            mapa[p.getX()][p.getY()] = p.getCor();
-        }
+        pessoas.forEach(p -> mapa[p.getY()][p.getX()] = p.getCor());
         return mapa;
     }
 
-    public void checaPessoas(){
-        for(Pessoa p : pessoas){
-            if (p.getTempoImune() == 0) if((p.getX() >=7 && p.getX() <= 20)){
-                if(p.getY() >= 2 && p.getY() <= 10){
-                    System.out.println("Pessoa " + p.getWhatsappID() + " foi infectada");
-                    if (p instanceof PessoaBemInformada) {
-                        p = new PessoaMalInformada(p.getX(), p.getY(), 46, p.getWhatsappID());
-                    }
-                } else if (p.getY() >= 19 && p.getY() <= 27) {
-                    System.out.println("Pessoa " + p.getWhatsappID() + " foi desinfectada");
-                    if (p instanceof PessoaMalInformada) {
-                        p = new PessoaBemInformada(p.getX(), p.getY(), 56, p.getWhatsappID());
-                    }
+    public Pessoa checaPessoas(Pessoa p){
+        if (p.getTempoImune() == 0) if((p.getX() >=7 && p.getX() <= 20)){
+            if(p.getY() >= 2 && p.getY() <= 10){
+                if (p instanceof PessoaBemInformada) {
+                    System.out.println("Pessoa " + p.getWhatsappID() + " INFECTADA");
+                    return new PessoaMalInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), 0);
+                }
+            } else if (p.getY() >= 18 && p.getY() <= 26) {
+                System.out.println("Pessoa " + p.getWhatsappID() + " DESINFECTADA");
+                if (p instanceof PessoaMalInformada) {
+                    return new PessoaBemInformada(p.getX(), p.getY(), 6, p.getWhatsappID(), 0);
                 }
             }
-            if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 13 && p.getY() <= 19)){
-                System.out.println("Pessoa " + p.getWhatsappID() + " IMUNE");
-                p.setTempoImune(30);
-            }
         }
+        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 13 && p.getY() <= 19)){
+            System.out.println("Pessoa " + p.getWhatsappID() + " IMUNE");
+            return new PessoaBemInformada(p.getX(), p.getY(), p.getCor(), p.getWhatsappID(), 30);
+        }
+        return null;
     }
 
     public void desenhaMundo(){
+        for(Pessoa p : pessoas){
+            Pessoa newP = checaPessoas(p);
+            if (newP != null) {
+                pessoas.set(pessoas.indexOf(p), newP);
+            }
+            if(p instanceof PessoaBemInformada) ((PessoaBemInformada) p).move();
+            else ((PessoaMalInformada) p).move();
+        }
         int[][] mapa = desenhaPessoas(this.pessoas);
         for(int i = 0; i < 30; i++){
             for(int j = 0; j < 60; j++){
-                if(mapa[i][j] == 1 || mapa[i][j] == 2 || mapa[i][j] == 3 || mapa[i][j] == 4){
-                    System.out.print("█");
-                }else if(mapa[i][j] != 0){
-                    System.out.print(mapa[i][j]);
-                }
-                else{
+                if (mapa[i][j] == 0) {
                     System.out.print(" ");
+                } else if (mapa[i][j] == 1) {
+                    System.out.print("\033[47m \033[0m");
+                } else if (mapa[i][j] == 2) {
+                    System.out.print("\033[45m \033[0m");
+                } else if (mapa[i][j] == 3) {
+                    System.out.print("\033[44m \033[0m");
+                } else if (mapa[i][j] == 4) {
+                    System.out.print("\033[46m \033[0m");
+                } else if (mapa[i][j] == 5) {
+                    System.out.print("\033[41m \033[0m");
+                } else if (mapa[i][j] == 6) {
+                    System.out.print("\033[42m \033[0m");
+                } else if (mapa[i][j] == 7) {
+                    System.out.print("\033[43m \033[0m");
                 }
             }
             System.out.println();
-        }
-        for(Pessoa p : pessoas){
-            checaPessoas();
-            ((PessoaBemInformada) p).move();
-            //((PessoaMalInformada) p).move();
         }
     }
 }

@@ -8,10 +8,11 @@ public class Pessoa {
     private int tempoImune = 0;
     private ArrayList<String> AgendaContatos = new ArrayList<>();
 
-    public Pessoa(int x, int y, int cor, String whatsappID){
+    public Pessoa(int x, int y, int cor, String whatsappID, int tempoImune){
         this.x = x;
         this.y = y;
         this.cor = cor;
+        this.tempoImune = tempoImune;
         this.whatsappID = whatsappID;
     }
 
