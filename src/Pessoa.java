@@ -53,7 +53,10 @@ public class Pessoa {
     }
 
     public void setAgendaContatos(ArrayList<String> agendaContatos) {
-        AgendaContatos = agendaContatos;
+        this.AgendaContatos = agendaContatos;
+    }
+    public void addContato(String contato){
+        this.AgendaContatos.add(contato);
     }
 
     public int getTempoImune() {return tempoImune;}

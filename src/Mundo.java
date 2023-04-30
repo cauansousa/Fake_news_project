@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Mundo {
@@ -36,6 +37,11 @@ public class Mundo {
     };
 
     private ArrayList<Pessoa> pessoas;
+
+    private void setPessoas(ArrayList<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
+
     public void geraPessoas(){
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         Random rand = new Random();
@@ -43,10 +49,6 @@ public class Mundo {
             pessoas.add(new PessoaBemInformada(rand.nextInt(57)+1,rand.nextInt(27)+1, 6, String.valueOf(i+100), 0));
         }
         setPessoas(pessoas);
-    }
-
-    private void setPessoas(ArrayList<Pessoa> pessoas) {
-        this.pessoas = pessoas;
     }
 
     public int[][] desenhaPessoas(ArrayList<Pessoa> pessoas) {
@@ -59,7 +61,7 @@ public class Mundo {
     }
 
     public Pessoa checaPessoas(Pessoa p){
-        if (p.getTempoImune() == 0) if((p.getX() >=7 && p.getX() <= 20)){
+        if (p.getTempoImune() == 0) if(p.getX() >=7 && p.getX() <= 20){
             if(p.getY() >= 2 && p.getY() <= 10){
                 if (p instanceof PessoaBemInformada) {
                     System.out.println("Pessoa " + p.getWhatsappID() + " INFECTADA");
@@ -77,6 +79,20 @@ public class Mundo {
             return new PessoaBemInformada(p.getX(), p.getY(), p.getCor(), p.getWhatsappID(), 30);
         }
         return null;
+    }
+
+    public void adicionaContatos(Pessoa pessoa){
+        for(Pessoa p : this.pessoas){
+            if(pessoa.getX() == p.getX() || pessoa.getX()+1 == p.getX() || pessoa.getX()-1 == p.getX()){
+                if(pessoa.getY() == p.getY() || pessoa.getY()+1 == p.getY() || pessoa.getY()-1 == p.getY()){
+                    if(!Objects.equals(pessoa.getWhatsappID(), p.getWhatsappID())){
+                        if(!pessoa.getAgendaContatos().contains(p.getWhatsappID())) pessoa.addContato(p.getWhatsappID());
+                        System.out.println("Pessoa " + pessoa.getWhatsappID() + " adicionou " + p.getWhatsappID() + " aos contatos");
+                        System.out.println(p.getAgendaContatos());
+                    }
+                }
+            }
+        }
     }
 
     public void desenhaMundo(){
@@ -105,6 +121,7 @@ public class Mundo {
         }
         for(Pessoa p : pessoas){
             Pessoa newP = checaPessoas(p);
+            adicionaContatos(p);
             if (newP != null) {
                 pessoas.set(pessoas.indexOf(p), newP);
                 if(newP instanceof PessoaBemInformada) ((PessoaBemInformada) newP).move();
