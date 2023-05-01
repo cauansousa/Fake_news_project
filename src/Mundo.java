@@ -87,8 +87,6 @@ public class Mundo {
                 if(pessoa.getY() == p.getY() || pessoa.getY()+1 == p.getY() || pessoa.getY()-1 == p.getY()){
                     if(!Objects.equals(pessoa.getWhatsappID(), p.getWhatsappID())){
                         if(!pessoa.getAgendaContatos().contains(p.getWhatsappID())) pessoa.addContato(p.getWhatsappID());
-                        System.out.println("Pessoa " + pessoa.getWhatsappID() + " adicionou " + p.getWhatsappID() + " aos contatos");
-                        System.out.println(p.getAgendaContatos());
                     }
                 }
             }

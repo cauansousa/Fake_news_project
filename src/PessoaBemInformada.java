@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class PessoaBemInformada extends Pessoa implements IMovable{
+public class PessoaBemInformada extends Pessoa implements IMovable {
 
     public PessoaBemInformada(int x, int y, int cor, String whatsappID, int tempoImune) {
         super(x, y, cor, whatsappID, 0);
