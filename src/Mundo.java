@@ -93,7 +93,7 @@ public class Mundo {
                 }
             }
         }
-        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 13 && p.getY() <= 19)){
+        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18)){
             return new PessoaBemInformada(p.getX(), p.getY(), 1, p.getWhatsappID(), 30, p.getAgendaContatos());
         }
         return null;
@@ -124,7 +124,6 @@ public class Mundo {
     }
 
     public void desenhaMundo(){
-
         int[][] mapa = desenhaPessoas(this.pessoas);
         for(int i = 0; i < 30; i++){
             for(int j = 0; j < 60; j++){
@@ -160,7 +159,6 @@ public class Mundo {
                 else ((PessoaMalInformada) p).move();
             }
             if(p.getTempoImune() != 0) {
-                System.out.println(p.getTempoImune());
                 p.setTempoImune(p.getTempoImune()-1);
                 System.out.println("Pessoa " + p.getWhatsappID() + " IMUNE"+ " " + p.getTempoImune());
             }
