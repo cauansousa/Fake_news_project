@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class PessoaBemInformada extends Pessoa implements IMovable {
 
-    public PessoaBemInformada(int x, int y, int cor, String whatsappID, int tempoImune) {
-        super(x, y, cor, whatsappID, 0);
+    public PessoaBemInformada(int x, int y, int cor, String whatsappID, int tempoImune, ArrayList<String> AgendaContatos) {
+        super(x, y, cor, whatsappID, 0, false, AgendaContatos);
     }
 
     @Override
