@@ -45,7 +45,7 @@ public class Mundo {
     public void geraPessoas(){
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         Random rand = new Random();
-        for(int i = 0; i < 20; i++){
+        for(int i = 0; i < 100; i++){
             pessoas.add(new PessoaBemInformada(rand.nextInt(57)+1,rand.nextInt(27)+1, 6, String.valueOf(i+100), 0, new ArrayList<>()));
         }
         setPessoas(pessoas);
@@ -61,7 +61,9 @@ public class Mundo {
     }
 
     public Pessoa checaPessoas(Pessoa p){
-        if (p.getTempoImune() == 0) {
+        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18)){
+            return new PessoaBemInformada(p.getX(), p.getY(), 1, p.getWhatsappID(), 30, p.getAgendaContatos());
+        }else if (p.getTempoImune() == 0) {
             if(p.getX() >=7 && p.getX() <= 20){
                 if(p.getY() >= 2 && p.getY() <= 10){
                     if (p instanceof PessoaBemInformada) {
@@ -77,25 +79,23 @@ public class Mundo {
                     }
                 }
             }
-            for(Pessoa pessoa : this.pessoas){
-                if(pessoa.getTempoImune() == 0) {
-                    if (pessoa.getX() == p.getX() || pessoa.getX() + 1 == p.getX() || pessoa.getX() - 1 == p.getX()) {
-                        if (pessoa.getY() == p.getY() || pessoa.getY() + 1 == p.getY() || pessoa.getY() - 1 == p.getY()) {
-                            if (pessoa instanceof PessoaMalInformada) {
-                                if (p instanceof PessoaBemInformada) {
-                                    Pessoa p1 = new PessoaMalInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), 0, p.getAgendaContatos());
-                                    checaAgenda(p1);
-                                    return p1;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+//            for(Pessoa pessoa : this.pessoas){
+//                if(pessoa.getTempoImune() == 0) {
+//                    if (pessoa.getX() == p.getX() || pessoa.getX() + 1 == p.getX() || pessoa.getX() - 1 == p.getX()) {
+//                        if (pessoa.getY() == p.getY() || pessoa.getY() + 1 == p.getY() || pessoa.getY() - 1 == p.getY()) {
+//                            if (pessoa instanceof PessoaMalInformada) {
+//                                if (p instanceof PessoaBemInformada) {
+//                                    Pessoa p1 = new PessoaMalInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), 0, p.getAgendaContatos());
+//                                    checaAgenda(p1);
+//                                    return p1;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
-        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18)){
-            return new PessoaBemInformada(p.getX(), p.getY(), 1, p.getWhatsappID(), 30, p.getAgendaContatos());
-        }
+
         return null;
     }
 
