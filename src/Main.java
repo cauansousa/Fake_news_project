@@ -5,13 +5,15 @@ public class Main {
         Mundo m = new Mundo();
         m.geraPessoas();
         while (true) {
+            System.out.println();
+            System.out.println("------------------------------------------------------------");
+            System.out.println("\033[47m \033[0m Tempo: " + contador);
             m.desenhaMundo();
             try {
                 sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(contador);
             contador++;
         }
     }

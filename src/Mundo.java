@@ -60,12 +60,12 @@ public class Mundo {
 
     public Pessoa checaPessoas(Pessoa p){
         if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18)){
-            return new PessoaBemInformada(p.getX(), p.getY(), 1, p.getWhatsappID(), 30, p.getAgendaContatos());
+            return new PessoaBemInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), 31, p.getAgendaContatos());
         }else if (p.getTempoImune() == 0) {
             if(p.getX() >=7 && p.getX() <= 20){
                 if(p.getY() >= 2 && p.getY() <= 10){
                     if (p instanceof PessoaBemInformada) {
-                        Pessoa p1 = new PessoaMalInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), 0, p.getAgendaContatos());
+                        Pessoa p1 = new PessoaMalInformada(p.getX(), p.getY(), 5, p.getWhatsappID(), 0, p.getAgendaContatos());
                         checaAgenda(p1);
                         return p1;
                     }
@@ -93,7 +93,6 @@ public class Mundo {
 //                }
 //            }
         }
-
         return null;
     }
 
@@ -113,7 +112,7 @@ public class Mundo {
         for(Pessoa p2 : this.pessoas){
             if(p.getAgendaContatos().contains(p2.getWhatsappID())){
                 if(p2 instanceof PessoaBemInformada && p instanceof PessoaMalInformada){
-                    this.pessoas.set(this.pessoas.indexOf(p2), new PessoaMalInformada(p2.getX(), p2.getY(), 7, p2.getWhatsappID(), 0, p2.getAgendaContatos()));
+                    this.pessoas.set(this.pessoas.indexOf(p2), new PessoaMalInformada(p2.getX(), p2.getY(), 5, p2.getWhatsappID(), 0, p2.getAgendaContatos()));
                 }else if(p2 instanceof PessoaMalInformada && p instanceof PessoaBemInformada){
                     this.pessoas.set(this.pessoas.indexOf(p2), new PessoaBemInformada(p2.getX(), p2.getY(), 6, p2.getWhatsappID(), 0, p2.getAgendaContatos()));
                 }
@@ -123,6 +122,9 @@ public class Mundo {
 
     public void desenhaMundo(){
         int[][] mapa = desenhaPessoas(this.pessoas);
+        int bemInformadas = 0;
+        int malInformadas = 0;
+        int imunes = 0;
         for(int i = 0; i < 30; i++){
             for(int j = 0; j < 60; j++){
                 if (mapa[i][j] == 0) {
@@ -137,14 +139,20 @@ public class Mundo {
                     System.out.print("\033[46m \033[0m");
                 } else if (mapa[i][j] == 5) {
                     System.out.print("\033[41m \033[0m");
+                    malInformadas += 1;
                 } else if (mapa[i][j] == 6) {
                     System.out.print("\033[42m \033[0m");
+                    bemInformadas += 1;
                 } else if (mapa[i][j] == 7) {
                     System.out.print("\033[43m \033[0m");
+                    imunes += 1;
                 }
             }
             System.out.println();
         }
+        System.out.println("\033[42m \033[0m Pessoa bem informada: "+bemInformadas);
+        System.out.println("\033[41m \033[0m Pessoa mal informada: "+malInformadas);
+        System.out.println("\033[43m \033[0m Pessoa imune: "+imunes);
         for(Pessoa p : pessoas){
             Pessoa newP = checaPessoas(p);
             adicionaContatos(p);
@@ -158,7 +166,6 @@ public class Mundo {
             }
             if(p.getTempoImune() != 0) {
                 p.setTempoImune(p.getTempoImune()-1);
-                System.out.println("Pessoa " + p.getWhatsappID() + " IMUNE"+ " " + p.getTempoImune());
             }
             if(p.getTempoImune() == 0 && p.getCor() == 1) p.setCor(6);
         }
