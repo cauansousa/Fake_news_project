@@ -43,7 +43,7 @@ public class Mundo {
     public void geraPessoas(){
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         Random rand = new Random();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 100; i++){
             pessoas.add(new PessoaBemInformada(rand.nextInt(57)+1,rand.nextInt(27)+1, 6, String.valueOf(i+100), 0, new ArrayList<>()));
         }
         setPessoas(pessoas);
@@ -59,7 +59,7 @@ public class Mundo {
     }
 
     public Pessoa checaPessoas(Pessoa p){
-        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18)){
+        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18) && (p instanceof PessoaBemInformada)){
             return new PessoaBemInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), 31, p.getAgendaContatos());
         }else if (p.getTempoImune() == 0) {
             if(p.getX() >=7 && p.getX() <= 20){
