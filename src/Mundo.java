@@ -59,19 +59,20 @@ public class Mundo {
     }
 
     public Pessoa checaPessoas(Pessoa p){
-        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18) && (p instanceof PessoaBemInformada)){
-            return new PessoaBemInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), 31, p.getAgendaContatos());
+        if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18)){
+            p.setTempoImune(31);
+            return null;
         }else if (p.getTempoImune() == 0) {
             if(p.getX() >=7 && p.getX() <= 20){
                 if(p.getY() >= 2 && p.getY() <= 10){
                     if (p instanceof PessoaBemInformada) {
-                        Pessoa p1 = new PessoaMalInformada(p.getX(), p.getY(), 5, p.getWhatsappID(), 0, p.getAgendaContatos());
+                        Pessoa p1 = new PessoaMalInformada(p.getX(), p.getY(), 5, p.getWhatsappID(), p.getTempoImune(), p.getAgendaContatos());
                         checaAgenda(p1);
                         return p1;
                     }
                 } else if (p.getY() >= 18 && p.getY() <= 26) {
                     if (p instanceof PessoaMalInformada) {
-                        Pessoa p1 = new PessoaBemInformada(p.getX(), p.getY(), 6, p.getWhatsappID(), 0, p.getAgendaContatos());
+                        Pessoa p1 = new PessoaBemInformada(p.getX(), p.getY(), 6, p.getWhatsappID(), p.getTempoImune(), p.getAgendaContatos());
                         checaAgenda(p1);
                         return p1;
                     }
@@ -112,9 +113,9 @@ public class Mundo {
         for(Pessoa p2 : this.pessoas){
             if(p.getAgendaContatos().contains(p2.getWhatsappID())){
                 if(p2 instanceof PessoaBemInformada && p instanceof PessoaMalInformada){
-                    this.pessoas.set(this.pessoas.indexOf(p2), new PessoaMalInformada(p2.getX(), p2.getY(), 5, p2.getWhatsappID(), 0, p2.getAgendaContatos()));
+                    this.pessoas.set(this.pessoas.indexOf(p2), new PessoaMalInformada(p2.getX(), p2.getY(), 5, p2.getWhatsappID(), p2.getTempoImune(), p2.getAgendaContatos()));
                 }else if(p2 instanceof PessoaMalInformada && p instanceof PessoaBemInformada){
-                    this.pessoas.set(this.pessoas.indexOf(p2), new PessoaBemInformada(p2.getX(), p2.getY(), 6, p2.getWhatsappID(), 0, p2.getAgendaContatos()));
+                    this.pessoas.set(this.pessoas.indexOf(p2), new PessoaBemInformada(p2.getX(), p2.getY(), 6, p2.getWhatsappID(), p2.getTempoImune(), p2.getAgendaContatos()));
                 }
             }
         }
