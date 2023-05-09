@@ -60,6 +60,10 @@ public class Mundo {
 
     public Pessoa checaPessoas(Pessoa p){
         if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18)){
+            if(p instanceof PessoaBemInformada){
+                Pessoa p1 = new PessoaMalInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), p.getTempoImune(), p.getAgendaContatos());
+                return p1;
+            }
             p.setTempoImune(31);
             return null;
         }else if (p.getTempoImune() == 0) {
