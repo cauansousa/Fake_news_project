@@ -42,31 +42,24 @@ public class Mundo {
     public void geraPessoas(){
         // Define uma função que gera um número de pessoas e adiciona a lista de pessoas da classe
         int numeroPessoas = 100;
-        // Define o número de pessoas a serem geradas
         ArrayList<Pessoa> pessoas = new ArrayList<>();
-        // Inicializa uma lista vazia de objetos Pessoa
         Random rand = new Random();
-        // Inicializa um objeto da classe Random para gerar números aleatórios
         for(int i = 0; i < numeroPessoas; i++){
             // Repete o processo de adicionar uma nova pessoa até chegar no número de pessoas definido
             pessoas.add(new PessoaBemInformada(rand.nextInt(57)+1,rand.nextInt(27)+1, 6, String.valueOf(i+100), 0, new ArrayList<>()));
-            // Adiciona uma nova pessoa aleatória à lista de pessoas
         }
         setPessoas(pessoas);
-        // Define a lista de pessoas da classe como a lista gerada
     }
 
 
     public int[][] desenhaPessoas(ArrayList<Pessoa> pessoas) {
         // Define uma função que recebe uma lista de objetos Pessoa e retorna uma matriz de inteiros representando um mapa onde cada posição contém a cor da pessoa que está naquela posição
         int[][] mapa = new int[this.mundo.length][60];
-        // A matriz do mapa é inicializada como uma cópia do atributo 'mundo' da classe que contém a função
         for (int i = 0; i < mapa.length; i++) {
             System.arraycopy(mundo[i], 0, mapa[i], 0, mundo[i].length);
         }
         // A função percorre a lista de pessoas recebida e define a cor da pessoa na posição correspondente na matriz 'mapa'
         pessoas.forEach(p -> mapa[p.getY()][p.getX()] = p.getCor());
-        // Por fim, a função retorna a matriz 'mapa'
         return mapa;
     }
 
@@ -118,9 +111,8 @@ public class Mundo {
     public void adicionaContatos(Pessoa pessoa){
         // itera sobre a lista de pessoas (atributo da classe)
         for(Pessoa p : this.pessoas){
-            // verifica se a coordenada X da pessoa a ser adicionada é igual ou tem uma diferença de uma unidade da coordenada X da pessoa atual da iteração
+            // verifica se há colisão com a pessoa atual da iteração
             if(pessoa.getX() == p.getX() || pessoa.getX()+1 == p.getX() || pessoa.getX()-1 == p.getX()){
-                // verifica se a coordenada Y da pessoa a ser adicionada é igual ou tem uma diferença de uma unidade da coordenada Y da pessoa atual da iteração
                 if(pessoa.getY() == p.getY() || pessoa.getY()+1 == p.getY() || pessoa.getY()-1 == p.getY()){
                     // verifica se a pessoa atual não é a mesma que a pessoa a ser adicionada
                     if(!Objects.equals(pessoa.getWhatsappID(), p.getWhatsappID())){
@@ -183,7 +175,7 @@ public class Mundo {
         System.out.println("\033[41m \033[0m Pessoa mal informada: "+malInformadas);
         System.out.println("\033[43m \033[0m Pessoa imune: "+imunes);
         for(Pessoa p : pessoas){
-            // Checa se a pessoa p deve se tornar mal informada ou mudar para uma região específica
+            // Checa se a pessoa p deve se tornar mal informada ou não
             Pessoa newP = checaPessoas(p);
             // Adiciona contatos para a pessoa p
             adicionaContatos(p);
@@ -204,6 +196,5 @@ public class Mundo {
                 else p.setCor(5);
             }
         }
-
     }
 }
