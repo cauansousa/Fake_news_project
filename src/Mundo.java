@@ -137,8 +137,12 @@ public class Mundo {
         for(Pessoa p2 : this.pessoas){
             if(p.getAgendaContatos().contains(p2.getWhatsappID())){
                 if(p2 instanceof PessoaBemInformada && p instanceof PessoaMalInformada){
+                    // Se a pessoa mal informada está na agenda de contatos de uma pessoa bem informada,
+                    // então essa pessoa mal informada se torna bem informada também.
                     this.pessoas.set(this.pessoas.indexOf(p2), new PessoaMalInformada(p2.getX(), p2.getY(), 5, p2.getWhatsappID(), p2.getTempoImune(), p2.getAgendaContatos()));
                 }else if(p2 instanceof PessoaMalInformada && p instanceof PessoaBemInformada){
+                    // Se a pessoa bem informada está na agenda de contatos de uma pessoa mal informada,
+                    // então essa pessoa mal informada se torna bem informada também.
                     this.pessoas.set(this.pessoas.indexOf(p2), new PessoaBemInformada(p2.getX(), p2.getY(), 6, p2.getWhatsappID(), p2.getTempoImune(), p2.getAgendaContatos()));
                 }
             }
@@ -179,8 +183,11 @@ public class Mundo {
         System.out.println("\033[41m \033[0m Pessoa mal informada: "+malInformadas);
         System.out.println("\033[43m \033[0m Pessoa imune: "+imunes);
         for(Pessoa p : pessoas){
+            // Checa se a pessoa p deve se tornar mal informada ou mudar para uma região específica
             Pessoa newP = checaPessoas(p);
+            // Adiciona contatos para a pessoa p
             adicionaContatos(p);
+            // Substitui a pessoa p por newP (caso newP != null) e faz a pessoa se mover
             if (newP != null) {
                 pessoas.set(pessoas.indexOf(p), newP);
                 if(newP instanceof PessoaBemInformada) ((PessoaBemInformada) newP).move();
@@ -189,13 +196,14 @@ public class Mundo {
                 if(p instanceof PessoaBemInformada) ((PessoaBemInformada) p).move();
                 else ((PessoaMalInformada) p).move();
             }
+            // Decrementa o tempo imune da pessoa p, se necessário
             if(p.getTempoImune() != 0) p.setTempoImune(p.getTempoImune()-1);
-
+            // Muda a cor da pessoa p, se necessário
             if(p.getTempoImune() == 0 && p.getCor() == 7){
                 if (p instanceof PessoaBemInformada) p.setCor(6);
                 else p.setCor(5);
-
             }
         }
+
     }
 }
