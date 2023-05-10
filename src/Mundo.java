@@ -37,13 +37,13 @@ public class Mundo {
     };
 
     private ArrayList<Pessoa> pessoas;
-
     private void setPessoas(ArrayList<Pessoa> pessoas) {this.pessoas = pessoas;}
 
     public void geraPessoas(){
+        int numeroPessoas = 100;
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         Random rand = new Random();
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < numeroPessoas; i++){
             pessoas.add(new PessoaBemInformada(rand.nextInt(57)+1,rand.nextInt(27)+1, 6, String.valueOf(i+100), 0, new ArrayList<>()));
         }
         setPessoas(pessoas);
@@ -61,8 +61,7 @@ public class Mundo {
     public Pessoa checaPessoas(Pessoa p){
         if((p.getX() >= 42 && p.getX() <= 52) && (p.getY() >= 12 && p.getY() <= 18)){
             if(p instanceof PessoaBemInformada){
-                Pessoa p1 = new PessoaMalInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), p.getTempoImune(), p.getAgendaContatos());
-                return p1;
+                return new PessoaMalInformada(p.getX(), p.getY(), 7, p.getWhatsappID(), p.getTempoImune(), p.getAgendaContatos());
             }
             p.setTempoImune(31);
             return null;

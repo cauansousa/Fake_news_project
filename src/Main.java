@@ -10,7 +10,7 @@ public class Main {
             System.out.println("\033[47m \033[0m Tempo: " + contador);
             m.desenhaMundo();
             try {
-                sleep(500);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
