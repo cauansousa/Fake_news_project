@@ -7,7 +7,7 @@ public class Pessoa {
     private String whatsappID;
     private int tempoImune = 0;
     private ArrayList<String> AgendaContatos = new ArrayList<>();
-    private boolean fakeNews = new FakeNews().isFakeNews();
+    private boolean fakeNews;
     public Pessoa(int x, int y, int cor, String whatsappID, int tempoImune, boolean fakeNews, ArrayList<String> AgendaContatos){
         this.x = x;
         this.y = y;
@@ -17,11 +17,6 @@ public class Pessoa {
         this.AgendaContatos = AgendaContatos;
         setFakeNews(fakeNews);
     }
-
-    public void setAgendaContatos(ArrayList<String> agendaContatos) {AgendaContatos = agendaContatos;}
-
-    public boolean isFakeNews() {return fakeNews;}
-
     public void setFakeNews(boolean fakeNews) {this.fakeNews = fakeNews;}
 
     public int getX() {
